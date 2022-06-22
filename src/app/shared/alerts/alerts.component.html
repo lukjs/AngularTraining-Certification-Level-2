@@ -1,0 +1,12 @@
+<div class="notification-area">
+  <div
+    class="notification"
+    *ngFor="let alert of alerts"
+    [class.is-success]="alert.type === AlertType.SUCCESS"
+    [class.is-danger]="alert.type === AlertType.ERROR"
+    [class.is-warning]="alert.type === AlertType.WARNING"
+  >
+    <button class="delete" (click)="deleteAlert(alert)"></button>
+    {{ alert.message }}
+  </div>
+</div>

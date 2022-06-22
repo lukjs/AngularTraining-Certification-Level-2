@@ -1,0 +1,45 @@
+<div class="card">
+  <header class="card-header">
+    <p class="card-header-title">Track a new stock</p>
+  </header>
+  <div class="card-content">
+    <div class="content">
+      <div class="title is-7">
+        Enter the symbol of a stock to track (i.e AAPL, TSLA, GOOGL)
+        <div class="columns mt-2">
+          <div class="column is-2">
+            <form [formGroup]="form">
+              <input
+                class="input"
+                type="text"
+                placeholder="Stock symbol"
+                formControlName="symbol"
+                (keyup.enter)="trackNewStock()"
+                [class.is-danger]="form.dirty && symbol.errors"
+              />
+              <div *ngIf="form.dirty">
+                <div class="alert">
+                  <div *ngIf="symbol?.errors?.['minlength']">
+                    Symbol has 1 letter minimum
+                  </div>
+                  <div *ngIf="symbol?.errors?.['maxlength']">
+                    Symbol has 5 letters maximum
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="column is-2">
+            <button
+              class="button"
+              (click)="trackNewStock()"
+              [disabled]="!form.valid"
+            >
+              Track stock
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

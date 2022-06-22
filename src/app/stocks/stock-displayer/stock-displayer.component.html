@@ -1,0 +1,51 @@
+<div class="card">
+  <header class="card-header">
+    <p class="card-header-title">{{ stock.name }} ({{ stock.symbol }})</p>
+    <button class="card-header-icon" aria-label="more options">
+      <span class="material-icons-outlined" (click)="removeStock()">
+        close
+      </span>
+    </button>
+  </header>
+  <div class="card-content">
+    <div class="content">
+      <div class="columns">
+        <div class="column">
+          <div>
+            Current price :
+            <span class="has-text-weight-semibold"
+              >{{ stock.currentPrice }}$</span
+            >
+          </div>
+          <div>
+            High price today :
+            <span class="has-text-weight-semibold">{{ stock.highPrice }}$</span>
+          </div>
+          <div>
+            Percent change :
+            <span class="has-text-weight-semibold"
+              >{{ stock.percentChange }}%</span
+            >
+          </div>
+          <div>
+            Open price :
+            <span class="has-text-weight-semibold">{{ stock.openPrice }}$</span>
+          </div>
+        </div>
+        <div class="column has-text-centered">
+          <span
+            class="material-icons-outlined icon-chart"
+            [ngClass]="stock.percentChange > 0 ? 'change-up' : 'change-down'"
+          >
+            {{ stock.percentChange > 0 ? "trending_up" : "trending_down" }}
+          </span>
+        </div>
+      </div>
+      <div class="has-text-centered">
+        <button class="button" [routerLink]="">
+          Go to social sentiment details
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

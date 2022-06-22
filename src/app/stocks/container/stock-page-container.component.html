@@ -1,0 +1,16 @@
+<div class="p-4">
+  <div class="p-2">
+    <app-add-stock-tracking
+      (newStock)="addStock($event)"
+    ></app-add-stock-tracking>
+  </div>
+
+  <div class="stocks-tracked">
+    <app-stock-displayer
+      [stock]="stock"
+      (stockRemoved)="removeStock(stock)"
+      *ngFor="let stock of stocks"
+      class="p-2"
+    ></app-stock-displayer>
+  </div>
+</div>
