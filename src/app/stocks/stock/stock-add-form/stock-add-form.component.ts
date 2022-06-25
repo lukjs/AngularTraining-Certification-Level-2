@@ -1,6 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import {
-  AbstractControl,
   FormBuilder,
   FormControl,
   FormGroup,
@@ -8,11 +7,11 @@ import {
 } from '@angular/forms';
 
 @Component({
-  selector: 'app-add-stock-tracking',
-  templateUrl: './add-stock-tracking.component.html',
-  styleUrls: ['./add-stock-tracking.component.scss'],
+  selector: 'app-stock-add-form',
+  templateUrl: './stock-add-form.component.html',
+  styleUrls: ['./stock-add-form.component.scss'],
 })
-export class AddStockTrackingComponent {
+export class StockAddFormComponent {
   form!: FormGroup;
   @Output() newStock: EventEmitter<string>;
 
@@ -32,7 +31,7 @@ export class AddStockTrackingComponent {
   }
 
   trackNewStock() {
-    if (!this.symbol) return;
+    if (!this.symbol || !this.form.valid) return;
 
     this.newStock.emit(this.form.controls['symbol'].value);
     this.form.reset();

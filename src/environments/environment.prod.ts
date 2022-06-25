@@ -8,7 +8,7 @@ export const environment = {
     paths: {
       quote: 'quote',
       symbol: 'search',
-      sentiment: 'insider-sentiment',
+      sentiment: 'stock/insider-sentiment',
     },
   },
 };

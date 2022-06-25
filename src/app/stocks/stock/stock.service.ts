@@ -1,31 +1,21 @@
 import { Injectable } from '@angular/core';
-import { Stock } from '@shared/models';
 import { Alert, AlertType } from '@shared/models/alert';
-import { StockRaw } from '@shared/models/raw/stock.raw';
-import { SymbolRaw } from '@shared/models/raw/symbol.raw';
 import { AlertsService } from '@shared/services';
-import { HttpStocksService } from '@shared/services/http';
-import {
-  BehaviorSubject,
-  catchError,
-  filter,
-  forkJoin,
-  map,
-  Observable,
-  of,
-  tap,
-  throwError,
-} from 'rxjs';
+import { HttpStockService } from '@stocks/shared/http';
+import { Stock } from '@stocks/shared/models';
+import { StockRaw } from '@stocks/shared/models/raw/stock.raw';
+import { SymbolRaw } from '@stocks/shared/models/raw/symbol.raw';
+import { BehaviorSubject, forkJoin, map, Observable } from 'rxjs';
 
 @Injectable()
-export class StocksService {
+export class StockService {
   private static readonly STOCKS_TRACKED_KEY = 'stocks_tracked';
 
   private _stocks: BehaviorSubject<Stock[]>;
   stocks: Observable<Stock[]>;
 
   constructor(
-    private httpStock: HttpStocksService,
+    private httpStock: HttpStockService,
     private alertsService: AlertsService
   ) {
     this._stocks = new BehaviorSubject<Stock[]>([]);
@@ -36,13 +26,13 @@ export class StocksService {
 
   private saveToStorage() {
     localStorage.setItem(
-      StocksService.STOCKS_TRACKED_KEY,
+      StockService.STOCKS_TRACKED_KEY,
       JSON.stringify(this._stocks.value.map((stock) => stock.symbol))
     );
   }
 
   private loadFromStorage() {
-    const saved = localStorage.getItem(StocksService.STOCKS_TRACKED_KEY) || '';
+    const saved = localStorage.getItem(StockService.STOCKS_TRACKED_KEY) || '';
     try {
       (JSON.parse(saved) as string[]).forEach((symbol) =>
         this.addStock(symbol)
@@ -52,6 +42,10 @@ export class StocksService {
         new Alert(`Failed to load symbol from storage`, AlertType.ERROR)
       );
     }
+  }
+
+  private isStockAlreadyLoaded(stockSymbol: string) {
+    return !!this._stocks.value.find((stock) => stock.symbol === stockSymbol);
   }
 
   removeStock(stock: Stock) {
@@ -65,7 +59,7 @@ export class StocksService {
   }
 
   addStock(stockSymbol: string): void {
-    if (this._stocks.value.find((stock) => stock.symbol === stockSymbol)) {
+    if (this.isStockAlreadyLoaded(stockSymbol)) {
       this.alertsService.addAlert(
         new Alert(`Stock ${stockSymbol} already added`, AlertType.WARNING)
       );
@@ -108,5 +102,13 @@ export class StocksService {
           );
         },
       });
+  }
+
+  getStock(stockSymbol: string): Observable<Stock | null> {
+    return this.stocks.pipe(
+      map(
+        (stocks) => stocks.find((stock) => stock.symbol === stockSymbol) || null
+      )
+    );
   }
 }

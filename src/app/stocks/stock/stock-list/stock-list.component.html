@@ -1,15 +1,13 @@
 <div class="p-4">
   <div class="p-2">
-    <app-add-stock-tracking
-      (newStock)="addStock($event)"
-    ></app-add-stock-tracking>
+    <app-stock-add-form (newStock)="addStock($event)"></app-stock-add-form>
   </div>
 
   <div class="stocks-tracked">
     <app-stock-displayer
       [stock]="stock"
       (stockRemoved)="removeStock(stock)"
-      *ngFor="let stock of stocks"
+      *ngFor="let stock of stocks | async"
       class="p-2"
     ></app-stock-displayer>
   </div>

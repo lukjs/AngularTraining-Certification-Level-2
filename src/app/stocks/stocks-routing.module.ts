@@ -1,12 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { StockPageContainerComponent } from './container/stock-page-container.component';
+import { StockSentimentDisplayerComponent } from './sentiment/stock-sentiment-displayer/stock-sentiment-displayer.component';
+import { StockListComponent } from '@stocks/stock';
 
 const routes: Routes = [
-  //   { path: '', redirectTo: '/stocks', pathMatch: 'full' },
   {
     path: '',
-    component: StockPageContainerComponent,
+    component: StockListComponent,
+  },
+  {
+    path: 'sentiment/:symbol',
+    component: StockSentimentDisplayerComponent,
   },
 ];
 

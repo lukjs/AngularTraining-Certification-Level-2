@@ -1,0 +1,66 @@
+<div class="p-4">
+  <div class="card">
+    <header class="card-header" *ngIf="stock$ | async as stock">
+      <p class="card-header-title">{{ stock.name }} ({{ stock.symbol }})</p>
+    </header>
+    <div class="card-content">
+      <div class="content">
+        <ng-container *ngIf="sentiments$ | async as sentiments">
+          <div class="columns is-justify-content-center">
+            <!-- <div class="column is-one-fifth"></div> -->
+            <div class="column is-four-fifths is-justify-content-center">
+              <div class="columns is-justify-content-center">
+                <div
+                  class="column is-one-third"
+                  *ngFor="let sentiment of sentiments"
+                >
+                  <div
+                    class="is-flex is-flex-direction-row is-justify-content-center"
+                  >
+                    <div>
+                      <div>
+                        <span class="has-text-weight-semibold">{{
+                          sentiment.date | date: "LLLL"
+                        }}</span>
+                      </div>
+                      <div>
+                        Change :
+                        <span class="has-text-weight-semibold"
+                          >{{ sentiment.change }}$</span
+                        >
+                      </div>
+                      <div>
+                        MSRP :
+                        <span class="has-text-weight-semibold"
+                          >{{ sentiment.mspr }}%</span
+                        >
+                      </div>
+                    </div>
+                    <div>
+                      <span
+                        class="material-icons-outlined icon-chart"
+                        [ngClass]="
+                          sentiment.change > 0 ? 'change-up' : 'change-down'
+                        "
+                      >
+                        {{
+                          sentiment.change > 0
+                            ? "arrow_upward"
+                            : "arrow_downward"
+                        }}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="column is-one-fifth"></div> -->
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <button class="button mt-2" [routerLink]="['']">
+    Back to list of stocks
+  </button>
+</div>

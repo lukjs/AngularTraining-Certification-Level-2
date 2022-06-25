@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Stock } from '@shared/models';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Stock } from '@stocks/shared/models';
 
 @Component({
   selector: 'app-stock-displayer',

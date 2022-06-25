@@ -1,1 +1,1 @@
-export { Stock } from './stock';
+export { Alert, AlertType } from './alert';

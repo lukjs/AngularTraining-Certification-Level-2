@@ -20,8 +20,8 @@
     "module": "es2020",
     "lib": ["es2020", "dom"],
     "paths": {
-      "@stocks/*": ["src/app/stocks/*"],
-      "@shared/*": ["src/app/shared/*"]
+      "@shared/*": ["src/app/shared/*"],
+      "@stocks/*": ["src/app/stocks/*"]
     }
   },
   "angularCompilerOptions": {

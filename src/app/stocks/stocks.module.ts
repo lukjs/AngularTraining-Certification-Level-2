@@ -1,31 +1,46 @@
-import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { CommonModule, DatePipe } from '@angular/common';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { HttpStocksService } from '@shared/services/http';
-import { AddStockTrackingComponent } from './add-stock-tracking/add-stock-tracking.component';
-
-import { StockPageContainerComponent } from './container/stock-page-container.component';
-import { StocksRoutingModule } from './stocks-routing.module';
-import { StocksService } from './stocks.service';
-import { StockDisplayerComponent } from './stock-displayer/stock-displayer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { StocksRoutingModule } from './stocks-routing.module';
+import {
+  StockService,
+  StockListComponent,
+  StockAddFormComponent,
+  StockDisplayerComponent,
+} from '@stocks/stock';
+import {
+  SentimentService,
+  StockSentimentDisplayerComponent,
+} from '@stocks/sentiment';
+import { HttpSentimentService, HttpStockService } from '@stocks/shared/http';
+import { FinnhubTokenInterceptor } from '@stocks/shared/interceptors';
 
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     StocksRoutingModule,
   ],
   declarations: [
-    StockPageContainerComponent,
-    AddStockTrackingComponent,
+    StockListComponent,
+    StockAddFormComponent,
     StockDisplayerComponent,
+    StockSentimentDisplayerComponent,
   ],
-  exports: [StockPageContainerComponent, AddStockTrackingComponent],
-  providers: [HttpStocksService, StocksService],
+  providers: [
+    DatePipe,
+    HttpStockService,
+    HttpSentimentService,
+    StockService,
+    SentimentService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: FinnhubTokenInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [],
 })
 export class StocksModule {}
