@@ -33,7 +33,8 @@ export class StockAddFormComponent {
   trackNewStock() {
     if (!this.symbol || !this.form.valid) return;
 
-    this.newStock.emit(this.form.controls['symbol'].value);
+    const value = this.form.controls['symbol'].value as string;
+    this.newStock.emit(value.toUpperCase());
     this.form.reset();
   }
 }
