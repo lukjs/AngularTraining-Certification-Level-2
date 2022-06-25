@@ -1,4 +1,9 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Output,
+} from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -10,6 +15,7 @@ import {
   selector: 'app-stock-add-form',
   templateUrl: './stock-add-form.component.html',
   styleUrls: ['./stock-add-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StockAddFormComponent {
   form!: FormGroup;

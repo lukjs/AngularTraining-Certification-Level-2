@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Stock } from '@stocks/shared/models';
 import { StockService } from '@stocks/stock';
 import { Observable } from 'rxjs';
@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
   selector: 'app-stock-list',
   templateUrl: './stock-list.component.html',
   styleUrls: ['./stock-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StockListComponent {
   stocks: Observable<Stock[]>;

@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Stock } from '@stocks/shared/models';
 import { Sentiments } from '@stocks/shared/models';
@@ -10,6 +10,7 @@ import { SentimentService } from '../sentiment.service';
   selector: 'app-stock-sentiment-displayer',
   templateUrl: './stock-sentiment-displayer.component.html',
   styleUrls: ['./stock-sentiment-displayer.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StockSentimentDisplayerComponent implements OnDestroy {
   stock$: Observable<Stock | null>;
